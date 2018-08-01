@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+  database:
+    build:
+      context: ../
+      dockerfile: cloud_sql_proxy/Dockerfile
+    environment:
+      GCLOUD_SERVICE_KEY: $GCLOUD_SERVICE_KEY
+      CLOUDSQL_CONNECTION_NAME: $CLOUDSQL_CONNECTION_NAME
+    ports:
+      - "3300:3300"
+    networks:
+      - migration
+    image: database:v1
+    
+
+networks:
+  migration:
+    name: migration-net
+
