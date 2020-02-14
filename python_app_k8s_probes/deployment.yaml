@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-probe-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-prober
+  template:
+    metadata:
+      labels:
+        app: k8s-prober
+    spec:
+      containers:
+      - name: k8s-probe-test
+        image: "[input image here]"
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /liveness-health-check
+            port: 8770
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /readiness-health-check
+            port: 8770
+          initialDelaySeconds: 1
+          periodSeconds: 3
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 1

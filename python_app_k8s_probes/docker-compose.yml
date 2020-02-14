@@ -1,0 +1,6 @@
+version: '3.5'
+services:
+  python_app_k8s_probes:
+    build: .
+    ports:
+      - "8770:8770"
